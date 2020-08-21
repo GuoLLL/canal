@@ -200,7 +200,8 @@ public class CanalKafkaProducer extends AbstractMQProducer implements CanalMQPro
                         records.add(new ProducerRecord<>(topicName,
                             i,
                             null,
-                            CanalMessageSerializerUtil.serializer(messagePartition, true)));
+                            CanalMessageSerializerUtil.serializer(messagePartition,
+                                mqProperties.isFilterTransactionEntry())));
                     }
                 }
             } else {
@@ -208,7 +209,7 @@ public class CanalKafkaProducer extends AbstractMQProducer implements CanalMQPro
                 records.add(new ProducerRecord<>(topicName,
                     partition,
                     null,
-                    CanalMessageSerializerUtil.serializer(message, true)));
+                    CanalMessageSerializerUtil.serializer(message, mqProperties.isFilterTransactionEntry())));
             }
         } else {
             // 发送扁平数据json
